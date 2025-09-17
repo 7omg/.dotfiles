@@ -24,6 +24,14 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Start ssh-agent (as shown here: https://wiki.archlinux.org/title/SSH_keys#ssh-agent)
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 3d > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [ ! -f "$SSH_AUTH_SOCK" ]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
 # Set keyboard repeat rate
 # Default values are: auto repeat delay: 660, repeat rate: 25
 if [[ -n "$DISPLAY" ]] ; then
