@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # settings
-EXPIRY_WARNING="200" # warn if domain expires in less than this days
+EXPIRY_WARNING="50" # warn if domain expires in less than this days
 
 # error out when env variables are not set
 set -u
@@ -24,7 +24,7 @@ check_command_exists 'jq'
 # check network connection
 RET=$(curl -s -L --head 'https://www.inwx.de/de' -o /dev/null -w '%{http_code}')
 if [ $RET -ne 200 ]; then
-  echo "Could not connect to inwx.de"
+  echo "Error executing $0: Could not connect to inwx.de"
   exit 1
 fi
 
