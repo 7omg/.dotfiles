@@ -22,7 +22,7 @@ alias layout-de="setxkbmap -layout de"
 alias layout-us="setxkbmap -layout us"
 alias layout-usde="setxkbmap -layout 'de(us)'"
 
-alias save-power="sudo tlp bat; xbacklight -set 1"
+alias save-power="sudo tlp bat; brightnessctl set 1%"
 
 ## rebinds
 # xdg-open
