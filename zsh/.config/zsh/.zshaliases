@@ -28,6 +28,9 @@ alias save-power="sudo tlp bat; brightnessctl set 1%"
 # xdg-open
 alias open="xdg-open"
 
+# ssh (skip host checking for testing)
+alias unsecure-ssh="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
 # neovim
 alias nv="nvim"
 
@@ -168,3 +171,14 @@ email-alias () {
   esac
 }
 
+# Troll command to convert pdf to images and back, also remove metadata
+fuck-up-pdf () {
+  TMP_FOLDER=$(mktemp -d)
+
+  pdftoppm -r 60 "$1" "$TMP_FOLDER/page" -png # pdf to images (-r is image quality, default=150)
+  magick "$TMP_FOLDER/page-*.png" "$1" # images to pdf
+  exiftool -q -m -all= -overwrite_original "$1" # 'remove' pdf metadata
+  qpdf --linearize --replace-input "$1" # optimize pdf (remove hidden stuff, really removes metadata)
+
+  rm -rf "$TMP_FOLDER"
+}
