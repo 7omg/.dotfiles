@@ -41,3 +41,6 @@ export CALCHISTFILE="$XDG_CACHE_HOME"/calc_history
 export ELECTRUMDIR="$XDG_DATA_HOME"/electrum
 export GOPATH="$XDG_DATA_HOME"/go
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+
+# ripgrep
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/rg/config"

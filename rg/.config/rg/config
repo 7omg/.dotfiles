@@ -1,0 +1,9 @@
+# dont respect files like .gitignore
+--no-ignore
+
+# also search hidden files / directories
+--hidden
+
+# case insensitive when everything lowercase
+--smart-case
+
