@@ -150,8 +150,12 @@ email-alias () {
         return
       fi
 
-      RANDOM_NUMBER=$(tr -dc '0-9' < /dev/urandom | fold -w4 | head -1)
-      ALIAS_NAME="${2}-${RANDOM_NUMBER}"
+      if [[ "$3" == "--no-random" ]] ; then
+        ALIAS_NAME="$2"
+      else
+        RANDOM_NUMBER=$(tr -dc '0-9' < /dev/urandom | fold -w4 | head -1)
+        ALIAS_NAME="${2}-${RANDOM_NUMBER}"
+      fi
       echo "$ALIAS_NAME@$ALIAS_DOMAIN -> $ALIAS_DESTINATION@$ALIAS_DOMAIN"
 
       OUTPUT=$(curl -s -u "$MIGADU_USER:$MIGADU_TOKEN" \
@@ -166,7 +170,7 @@ email-alias () {
       echo "$OUTPUT" | jq -r '.address_aliases[] | "\(.address) -> \(.destinations | join(", "))"'
       ;;
     *)
-      echo "usage: $0 [create|list] [opt]"
+      echo "usage: $0 [create|list] [opt] [--no-random]"
       ;;
   esac
 }
